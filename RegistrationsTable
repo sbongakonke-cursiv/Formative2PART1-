@@ -1,0 +1,13 @@
+CREATE TABLE registrations (
+    registration_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
+    race_number VARCHAR(20),
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    payment_status VARCHAR(20) DEFAULT 'Pending' CHECK (payment_status IN ('Pending', 'Paid', 'Cancelled')),
+    CONSTRAINT fk_registrations_user FOREIGN KEY (user_id) 
+        REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_registrations_category FOREIGN KEY (category_id) 
+        REFERENCES categories(category_id) ON DELETE CASCADE,
+    CONSTRAINT unique_user_category UNIQUE (user_id, category_id)
+);
