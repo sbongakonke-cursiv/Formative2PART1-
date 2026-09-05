@@ -1,0 +1,10 @@
+CREATE TABLE results (
+    result_id SERIAL PRIMARY KEY,
+    registration_id INT UNIQUE NOT NULL,
+    finish_time INTERVAL, -- Format: HH:MM:SS
+    overall_position INT,
+    category_position INT,
+    status VARCHAR(20) DEFAULT 'Finished' CHECK (status IN ('Finished', 'DNF', 'DNS', 'DQ')),
+    CONSTRAINT fk_results_registration FOREIGN KEY (registration_id) 
+        REFERENCES registrations(registration_id) ON DELETE CASCADE
+);
