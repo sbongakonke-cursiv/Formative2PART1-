@@ -1,0 +1,13 @@
+CREATE TABLE dbo.Categories (
+    CategoryId INT IDENTITY(1,1) NOT NULL,
+    EventId INT NOT NULL,
+    CategoryName NVARCHAR(100) NOT NULL,
+    DistanceKm DECIMAL(6, 2) NOT NULL,
+    EntryFee DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    MaxParticipants INT NULL,
+    StartTime TIME NOT NULL,
+
+    CONSTRAINT PK_Categories PRIMARY KEY (CategoryId),
+    CONSTRAINT FK_Categories_Events FOREIGN KEY (EventId) 
+        REFERENCES dbo.Events(EventId) ON DELETE CASCADE
+);
