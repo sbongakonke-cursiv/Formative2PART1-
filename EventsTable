@@ -1,0 +1,12 @@
+CREATE TABLE events (
+    event_id SERIAL PRIMARY KEY,
+    organiser_id INT NOT NULL,
+    event_name VARCHAR(150) NOT NULL,
+    event_type VARCHAR(50) NOT NULL CHECK (event_type IN ('Running', 'Walking', 'Cycling', 'Multi-Sport')),
+    location VARCHAR(100) NOT NULL,
+    event_date DATE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_events_organiser FOREIGN KEY (organiser_id) 
+        REFERENCES users(user_id) ON DELETE CASCADE
+);
