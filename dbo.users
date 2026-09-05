@@ -1,0 +1,14 @@
+CREATE TABLE dbo.Users (
+    UserId INT IDENTITY(1,1) NOT NULL,
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    Email NVARCHAR(100) NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(15) NULL,
+    UserRole VARCHAR(20) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    
+    CONSTRAINT PK_Users PRIMARY KEY (UserId),
+    CONSTRAINT UQ_Users_Email UNIQUE (Email),
+    CONSTRAINT CK_Users_UserRole CHECK (UserRole IN ('Organiser', 'Participant', 'Admin'))
+);
