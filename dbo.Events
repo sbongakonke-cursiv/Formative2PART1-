@@ -1,0 +1,15 @@
+CREATE TABLE dbo.Events (
+    EventId INT IDENTITY(1,1) NOT NULL,
+    OrganiserId INT NOT NULL,
+    EventName NVARCHAR(150) NOT NULL,
+    EventType VARCHAR(50) NOT NULL,
+    Location NVARCHAR(100) NOT NULL,
+    EventDate DATE NOT NULL,
+    Description NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+
+    CONSTRAINT PK_Events PRIMARY KEY (EventId),
+    CONSTRAINT FK_Events_Users FOREIGN KEY (OrganiserId) 
+        REFERENCES dbo.Users(UserId) ON DELETE CASCADE,
+    CONSTRAINT CK_Events_EventType CHECK (EventType IN ('Running', 'Walking', 'Cycling', 'Multi-Sport'))
+);
