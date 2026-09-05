@@ -1,0 +1,14 @@
+CREATE TABLE dbo.Routes (
+    RouteId INT IDENTITY(1,1) NOT NULL,
+    EventId INT NOT NULL,
+    StartLocation NVARCHAR(100) NOT NULL,
+    FinishLocation NVARCHAR(100) NOT NULL,
+    ElevationGainMeters INT NULL,
+    RouteMapUrl NVARCHAR(255) NULL,
+    WeatherForecast NVARCHAR(255) NULL,
+
+    CONSTRAINT PK_Routes PRIMARY KEY (RouteId),
+    CONSTRAINT UQ_Routes_EventId UNIQUE (EventId),
+    CONSTRAINT FK_Routes_Events FOREIGN KEY (EventId) 
+        REFERENCES dbo.Events(EventId) ON DELETE CASCADE
+);
