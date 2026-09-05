@@ -1,0 +1,14 @@
+CREATE TABLE dbo.Results (
+    ResultId INT IDENTITY(1,1) NOT NULL,
+    RegistrationId INT NOT NULL,
+    FinishTime TIME NULL,
+    OverallPosition INT NULL,
+    CategoryPosition INT NULL,
+    Status VARCHAR(20) NOT NULL DEFAULT 'Finished',
+
+    CONSTRAINT PK_Results PRIMARY KEY (ResultId),
+    CONSTRAINT UQ_Results_RegistrationId UNIQUE (RegistrationId),
+    CONSTRAINT FK_Results_Registrations FOREIGN KEY (RegistrationId) 
+        REFERENCES dbo.Registrations(RegistrationId) ON DELETE CASCADE,
+    CONSTRAINT CK_Results_Status CHECK (Status IN ('Finished', 'DNF', 'DNS', 'DQ'))
+);
